@@ -1,0 +1,35 @@
+version: '3.1'
+
+services:
+  web:
+    image: odoo:${ODOO_VERSION}
+    depends_on:
+      - db
+    ports:
+      - "${ODOO_PORT}:8069"
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
+    environment:
+      - HOST=db
+      - USER=${DB_USER}
+      - PASSWORD=${DB_PASSWORD}
+      - ODOO_RC=/etc/odoo/odoo.conf
+      # Menyuplai master password langsung dari env agar odoo.conf tetap bersih
+      - ODOO_ADMIN_PASSWORD=${ODOO_ADMIN_PASSWORD}
+
+  db:
+    image: postgres:${POSTGRES_VERSION}
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+
+volumes:
+  odoo-web-data:
+  odoo-db-data:
