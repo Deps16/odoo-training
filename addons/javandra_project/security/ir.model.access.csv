@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_site_chronology_user,project.site.chronology.user,model_project_site_chronology,project.group_project_user,1,1,1,1
+access_project_site_chronology_manager,project.site.chronology.manager,model_project_site_chronology,project.group_project_manager,1,1,1,1
+access_project_budget_user,project.budget.user,model_project_budget,project.group_project_user,1,1,1,1
+access_project_budget_manager,project.budget.manager,model_project_budget,project.group_project_manager,1,1,1,1
