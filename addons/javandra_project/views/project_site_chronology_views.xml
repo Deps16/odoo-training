@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_project_site_chronology_tree" model="ir.ui.view">
+        <field name="name">project.site.chronology.tree</field>
+        <field name="model">project.site.chronology</field>
+        <field name="arch" type="xml">
+            <tree string="Project Site Chronology" sample="1">
+                <field name="event_date"/>
+                <field name="project_site_id"/>
+                <field name="title"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_project_site_chronology_form" model="ir.ui.view">
+        <field name="name">project.site.chronology.form</field>
+        <field name="model">project.site.chronology</field>
+        <field name="arch" type="xml">
+            <form string="Project Site Chronology">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="title"/>
+                            <field name="project_site_id"/>
+                            <field name="event_date"/>
+                            <field name="user_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="image" widget="image" filename="image_name"/>
+                            <field name="image_name" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="page_desc">
+                            <field name="description" widget="html" placeholder="Describe the site progress, issues, or details here..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_project_site_chronology_search" model="ir.ui.view">
+        <field name="name">project.site.chronology.search</field>
+        <field name="model">project.site.chronology</field>
+        <field name="arch" type="xml">
+            <search string="Search Chronology">
+                <field name="title"/>
+                <field name="project_site_id"/>
+                <field name="user_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Project Site/Task" name="group_by_site" context="{'group_by':'project_site_id'}"/>
+                    <filter string="Reported By" name="group_by_user" context="{'group_by':'user_id'}"/>
+                    <filter string="Event Date" name="group_by_date" context="{'group_by':'event_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_project_site_chronology" model="ir.actions.act_window">
+        <field name="name">Site Chronologies</field>
+        <field name="res_model">project.site.chronology</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_project_site_chronology_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new site chronology entry.
+            </p>
+            <p>
+                Track harian progress harian, foto-foto lapangan, and event updates for your project sites.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_project_site_chronology"
+              name="Site Chronologies"
+              parent="project.menu_project_management"
+              action="action_project_site_chronology"
+              sequence="25"/>
+</odoo>
